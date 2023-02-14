@@ -305,13 +305,20 @@ def findMin(minheap):
     return trueindex
             
 
-def compute_path(OPEN_list,target_cell,counter):
+def compute_path(OPEN_list,target_cell,counter,CLOSED_list):
     while (not (OPEN_list.getsize() == 0)) and (target_cell.getg() > findMin(OPEN_list)):
         # test_heap_2(OPEN_list)
         # print("Min: " + str(findMin(OPEN_list)))
         OPEN_list.swap(findMin(OPEN_list))
         s = OPEN_list.delete()
+        if(s in CLOSED_list):
+            # print("DUPLICATE FOUND" + str(s.getid()))
+            continue
+        CLOSED_list.append(s)
         if s.getid() == target_cell.getid():
+            # print("CLOSED LIST:")
+            # for item in CLOSED_list:
+                # print(item)
             return
         # print("SELECTED: " + str(s.getid()))
         for cell in s.getneighbors():
@@ -328,10 +335,47 @@ def compute_path(OPEN_list,target_cell,counter):
                 cell.setf(cell.getg() + cell.geth())
                 OPEN_list.insert(cell)
             # print("cell id: " + str(cell.getid()))
-    
     # print("COMPUTE PATH DONE")
     # print(OPEN_list.getsize())
+    # print("CLOSED LIST:")
+    # for item in CLOSED_list:
+        # print(item)
 
+def update_h_values(CLOSED_list,target_cell):
+    for cell in CLOSED_list:
+        cell.seth(target_cell.getg() - cell.getg())
+
+def compute_path_adaptive(OPEN_list,target_cell,counter,CLOSED_list):
+    while (not (OPEN_list.getsize() == 0)) and (target_cell.getg() > findMin(OPEN_list)):
+        # test_heap_2(OPEN_list)
+        # print("Min: " + str(findMin(OPEN_list)))
+        OPEN_list.swap(findMin(OPEN_list))
+        s = OPEN_list.delete()
+        if(s in CLOSED_list):
+            # print("DUPLICATE FOUND" + str(s.getid()))
+            continue
+        CLOSED_list.append(s)
+        if s.getid() == target_cell.getid():
+            # print("CLOSED LIST:")
+            # for item in CLOSED_list:
+                # print(item)
+            update_h_values(CLOSED_list,target_cell)
+            return
+        # print("SELECTED: " + str(s.getid()))
+        for cell in s.getneighbors():
+            if cell.getsearch() < counter:
+                cell.setg(np.inf)
+                cell.setsearch(counter)
+            if cell.getg() > (s.getg() + cell.getcost()):
+                cell.setg(s.getg() + cell.getcost())
+                cell.settree(s)
+                # print("set tree of " + str(cell.getid()) + " to " + str(s.getid()))
+                if not OPEN_list.contains(cell) == -1:
+                    OPEN_list.swap(OPEN_list.contains(cell))
+                    OPEN_list.delete()
+                cell.setf(cell.getg() + cell.geth())
+                OPEN_list.insert(cell)
+    update_h_values(CLOSED_list,target_cell)
 
 def follow_tree(target_cell,start_cell):
     path = [target_cell]
@@ -393,18 +437,19 @@ def repeated_forward_a(cell_graph,target_cell,start_cell):
         target_cell.setg(np.inf)
         target_cell.setsearch(counter)
         OPEN_list = MinHeap()
+        CLOSED_list = []
         ptr_cell.setf(ptr_cell.getg() + ptr_cell.geth())
         OPEN_list.insert(ptr_cell)
         # test_heap(cell_graph,OPEN_list)
-        print_array(cell_graph)
+        # print_array(cell_graph)
         ptr_cell.setf(ptr_cell.getg() + ptr_cell.geth())
-        compute_path(OPEN_list,target_cell,counter)
+        compute_path(OPEN_list,target_cell,counter,CLOSED_list)
         # test_heap_2(OPEN_list)
         if OPEN_list.getsize() == 0:
             print('I cannot reach the target.')
             return
         ptr_cell = follow_tree(target_cell,ptr_cell)
-        print_array(cell_graph)
+        # print_array(cell_graph)
         # print("ITERATION DONE")
     print("I reached the path")
     return
@@ -423,22 +468,53 @@ def repeated_backward_a(cell_graph,target_cell,start_cell):
         start_cell.setg(np.inf)
         start_cell.setsearch(counter)
         OPEN_list = MinHeap()
+        CLOSED_list = []
         ptr_cell.setf(ptr_cell.getg() + ptr_cell.geth())
         OPEN_list.insert(ptr_cell)
         # test_heap(cell_graph,OPEN_list)
-        print_array(cell_graph)
+        # print_array(cell_graph)
         ptr_cell.setf(ptr_cell.getg() + ptr_cell.geth())
-        compute_path(OPEN_list,start_cell,counter)
+        compute_path(OPEN_list,start_cell,counter,CLOSED_list)
         # test_heap_2(OPEN_list)
         if OPEN_list.getsize() == 0:
             print('I cannot reach the start.')
             return
         start_cell = follow_tree_backward(start_cell,ptr_cell)
-        print_array(cell_graph)
+        # print_array(cell_graph)
         # print("ITERATION DONE")
     print("I reached the path backwards")
     return
 
+def adaptive_a(cell_graph,target_cell,start_cell):
+    counter = 0
+    for cell in cell_graph:
+        cell.setsearch(0)
+    
+    ptr_cell = start_cell
+    while not ptr_cell.getid() == target_cell.getid():
+        counter += 1
+        initialize_costs(ptr_cell)
+        ptr_cell.setg(0)
+        ptr_cell.setsearch(counter)
+        target_cell.setg(np.inf)
+        target_cell.setsearch(counter)
+        OPEN_list = MinHeap()
+        CLOSED_list = []
+        ptr_cell.setf(ptr_cell.getg() + ptr_cell.geth())
+        OPEN_list.insert(ptr_cell)
+        # test_heap(cell_graph,OPEN_list)
+        # print_array(cell_graph)
+        ptr_cell.setf(ptr_cell.getg() + ptr_cell.geth())
+        compute_path_adaptive(OPEN_list,target_cell,counter,CLOSED_list)
+        # test_heap_2(OPEN_list)
+        if OPEN_list.getsize() == 0:
+            print('I cannot reach the target.')
+            return
+        ptr_cell = follow_tree(target_cell,ptr_cell)
+        # print_array(cell_graph)
+        # print("ITERATION DONE")
+    print("I reached the path adaptively")
+    return
         
 def initialize_costs(start_cell):
     for cell in start_cell.getneighbors():
@@ -458,12 +534,19 @@ def main():
         environments.append(new_graph)
         print(target_cell.getid())
         print(start_cell.getid())
-        # repeated_forward_a(new_graph,target_cell,start_cell)
-        set_h_values(new_graph,start_cell)
-        repeated_backward_a(new_graph,target_cell,start_cell)
+        print_array(new_graph)
 
-    # for environment in environments:
-        # print_array(environment)
+        # repeated_forward_a(new_graph,target_cell,start_cell)
+
+        # set_h_values(new_graph,start_cell)
+        # repeated_backward_a(new_graph,target_cell,start_cell)
+
+        # adaptive_a(new_graph,target_cell,start_cell)
+   
+
+
+    for environment in environments:
+        print_array(environment)
 
 if __name__ == '__main__':
     main()
