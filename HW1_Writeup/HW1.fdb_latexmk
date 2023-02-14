@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1676351827 "/Users/alanwu/Documents/GitHub/cs_440/HW1_Writeup/HW1.tex" "HW1.pdf" "HW1" 1676351829
-  "/Users/alanwu/Documents/GitHub/cs_440/HW1_Writeup/HW1.tex" 1676351827 5276 16fb9be636b40f9119dc373bb0230bb2 ""
+["pdflatex"] 1676352017 "/Users/alanwu/Documents/GitHub/cs_440/HW1_Writeup/HW1.tex" "HW1.pdf" "HW1" 1676352018
+  "/Users/alanwu/Documents/GitHub/cs_440/HW1_Writeup/HW1.tex" 1676352017 5277 6f1626c07981d99344c29cb528d48091 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -135,8 +135,8 @@
   "/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1647878959 4410336 7d30a02e9fa9a16d7d1f8d037ba69641 ""
   "/usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt" 1674063487 2826449 efeba7d53391d153f84ccbff4eddb662 ""
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
-  "HW1.aux" 1676351829 738 d76867be1d525973e57614e3f5528dc8 "pdflatex"
-  "HW1.tex" 1676351827 5276 16fb9be636b40f9119dc373bb0230bb2 ""
+  "HW1.aux" 1676352018 738 d76867be1d525973e57614e3f5528dc8 "pdflatex"
+  "HW1.tex" 1676352017 5277 6f1626c07981d99344c29cb528d48091 ""
   "figure1.png" 1676350814 29122 eedcb01ed85366e973e1dbcd647cda58 ""
   (generated)
   "HW1.aux"
