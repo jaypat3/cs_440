@@ -419,10 +419,12 @@ def repeated_backward_a(cell_graph,target_cell,start_cell):
         cell.setsearch(0)
     
     ptr_cell = start_cell
+    initialize_costs(target_cell)
+    target_cell.setg(0)
+    target_cell.setf(target_cell.getg() + target_cell.geth())
     while not ptr_cell.getid() == target_cell.getid():
         counter += 1
         initialize_costs(ptr_cell)
-        target_cell.setg(0)
         target_cell.setsearch(counter)
         ptr_cell.setg(np.inf)
         ptr_cell.setsearch(counter)
@@ -552,7 +554,7 @@ def part_2_a():
 def part_3():
     time_1 = []
     time_2 = []
-    for _ in range(50):
+    for _ in range(10):
         graph_1 = generate_graph()
         unblocked_array_1 = generate_blockages(graph_1.copy())
         target_cell_1,start_cell_1 = generate_target(graph_1.copy(),unblocked_array_1)
@@ -613,6 +615,7 @@ def part_5():
     plt.show()
     
 def main():    
+    """
     environments = []
     for _ in range(1):
         new_graph = generate_graph()
@@ -625,11 +628,11 @@ def main():
         repeated_backward_a(new_graph,target_cell,start_cell)
         adaptive_a(new_graph,target_cell,start_cell)
 
-    
-    part_2()
-    part_2_a()
+    """
+    # part_2()
+    # part_2_a()
     part_3()
-    part_5()
+    # part_5()
 
     # for environment in environments:
         # print_array(environment)
