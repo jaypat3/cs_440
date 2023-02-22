@@ -109,7 +109,7 @@
 \author{
     \textbf{Jay Patwardhan} {208001851}\\ 
     \textbf{Alan Wu} {208000574}\\ 
-    \textbf{Neel Shejwalkar} {RUID}
+    \textbf{Neel Shejwalkar} {207004853}
 }
 \date{}
 
@@ -165,13 +165,21 @@
 
 %Part 1%
 \begin{homeworkProblem}
-    \textbf{\large Understanding the Methods}\\\\
+    \textbf{\large Understanding the Methods} \\\\
     \part 
 
     Explain in your report why the first move of the agent for the example search problem is to the east rather than to the north given that the agent does not know initially which cells are blocked.
 
     \begin{solution*}
-    This is because in our search problem, the agent knows information about the blockage status of its direct neighbors, so the cell above, below, left, and right of it. Furthermore, for each new step it takes placing it in a new spot, it again obtains the status of each of its neighbors, so it will continuously update its knowledge of which cells are blocked as it moves along. Thus, in the example search problem, the agent at its starting point recognizes that its neighbors to the right and above are blocked, and its neighbor below is out of bounds and thus doesn't exist, and thus it can only move to the east as its first move.
+         \begin{figure}[h!]
+			\centering
+			\IfFileExists{figure1.png}{\includegraphics[width=0.5\textwidth]{figure1.png}}{No Figure Yet}
+		\caption{Second Example Search Problem} 
+		\end{figure}
+    This is because in our search problem, the agent knows information about the blockage status of its direct neighbors, so the cell above, below, left, and right of it. 
+    Furthermore, for each new step it takes placing it in a new spot, it again obtains the status of each of its neighbors, so it will continuously update its knowledge of which cells are blocked as it moves along. 
+    Thus, in the example search problem, the agent at its starting point recognizes that its neighbors to the right and above are blocked, and its neighbor below is out of bounds and thus doesn't exist, and thus it can only move to the east as its first move. 
+    Given that the agent can only see E1, E2 and E3 and it does not know that E4 is a blocked cell, then the shortest path from E2 to E5 would be for the agent A to move left.\\ 
     
     In our graph implementation, the cost associated with moving to a known blocked cell increases to infinity. Furthermore, we closely follow the pseudocode given in the writeup, with some modification. Thus, $g(s_{goal}) = \infty$, and when adding the right and above cells to the OPEN list, their f values are stored as g(s) + c(s,a), but $c(s,a) = \infty$ because these cells are blocked, thus their f values are $\infty$. It then follows that the condition of the while loop isn't satisfied for these two cells in ComputePath(), as $g(s_{goal}) == min(OPEN) = \infty$ for these two cells, and thus ComputePath() terminates, and never considers a path from the right or above. Thus, it follows that the first move of the agent for the example search problem is to the east, as it contains an f value that is not $\infty$ and thus continues the loop.
     \end{solution*}
@@ -208,7 +216,12 @@ bounded from above by the number of unblocked cells square
     We now turn to testing tie breaking by running repeated forward A* 50 times on a 101x101 grid and compare the runtime on each grid based on favoring big g values or smaller g values inside the Minheap. The stats for favoring big g are: mean: 0.3710785; median 0.133859; std 0.5682413.
     The stats for favoring small g are: mean: 0.865509; median 0.22789049; std 1.557079. As we can see, in general selecting larger g values is favored, although the difference is not quite large. However, there are quite noticeable outliers for the case where we favor small g values, and these are the cases in which we expand most cells on the board, similar to the example problem we explained above. Thus, while both runtimes are similar, we avoid cases where we expand each cell by favoring larger g values when tiebreaking. We show these outlier cases below, where the top grid is for larger g values, and the bottom grid is for smaller g values.
     \newline
-    \includegraphics{big_g_vs_small_g.png}
+    \begin{figure}[h!]
+        \centering
+        \IfFileExists{big_g_vs_small_g.png}{\includegraphics[width=0.5\textwidth]{big_g_vs_small_g.png}}{No Figure Yet}
+    \caption{Big g vs. Small g} 
+    \end{figure}
+
     
    
 \end{homeworkProblem}
@@ -225,7 +238,11 @@ bounded from above by the number of unblocked cells square
     In general, the median search time is faster than the mean search time, and is a more reliable indicator when comparing performances because means may get skewed.
     Furthermore, as seen below, we find that the histograms for the time taken to find a solution is slightly different, as although they have the same shape, repeated backward A* takes longer to execute. Repeated forward A* is on the top, repeated backward A* is on the bottom.
     \newline
-    \includegraphics{forward_vs_backward.png}
+    \begin{figure}[h!]
+        \centering
+        \IfFileExists{forward_vs_backward.png}{\includegraphics[width=0.75\textwidth]{forward_vs_backward.png}}{No Figure Yet}
+    \caption{Forward vs. Backward $A^{*}$} 
+    \end{figure}
 \end{homeworkProblem}
 
 \pagebreak
@@ -275,8 +292,11 @@ leaves initially consistent h-values consistent even if action costs can increas
     As we can see, the adaptive A* is slightly faster, although different trials may yield different results for these statistics. In general, the median search time is faster than the mean search time, and is a more reliable indicator when comparing performances because means may get skewed.
     Furthermore, as seen below, we find that the histograms for the time taken to find a solution is largely similar to each other. Repeated forward A* is on the top, adaptive A* is on the bottom.
     \newline
-    \includegraphics{forward_vs_adaptive.png}
-
+    \begin{figure}[h!]
+        \centering
+        \IfFileExists{forward_vs_adaptive.png}{\includegraphics[width=0.75\textwidth]{forward_vs_adaptive.png}}{No Figure Yet}
+    \caption{Forward vs. Adaptive $A^{*}$} 
+    \end{figure}
     
 \end{homeworkProblem}
 \pagebreak
