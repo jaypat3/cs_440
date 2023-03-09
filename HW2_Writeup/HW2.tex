@@ -1,0 +1,341 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#2}
+\newcommand{\hmwkName}{Search Problems in AI}
+\newcommand{\hmwkDate}{March 10, 2023}
+\newcommand{\hmwkClass}{CS 440: Introduction to Artificial Intelligence}
+\newcommand{\hmwkClassInstructor}{Professor Abdelsam Boularias}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass}}\\
+    \textmd{\hmwkTitle\ \hmwkName}\\
+    \vspace{0.1in}\small{\hmwkDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{
+    \textbf{Jay Patwardhan} {208001851}\\ 
+    \textbf{Alan Wu} {208000574}\\ 
+    \textbf{Neel Shejwalkar} {207004853}
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\bruh}{\textbf{\large Solution}}
+\newtheorem*{solution*}{Solution}
+\newenvironment{solution}{\begin{solution*}}{{\finishline} \end{solution*}}
+
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+%Part 1%
+\begin{homeworkProblem}
+    \textbf{\large Tracing Operation $A^{*}$ from Lugoj to Bucharest}\\\\
+
+\end{homeworkProblem}
+
+\pagebreak
+
+%Part 2%
+\begin{homeworkProblem}
+    \textbf{\large Consider a state space where the start state is number 1 and each state $k$ has two successors: numbers $2k$ and $2k + 1$.}\\\\
+    \part
+
+    \textbf{\large Suppose the goal state is 11. List the order in which states will be visited for breadthfirst search, depth-limited search
+    with limit 3, and iterative deepening search.}
+
+    \begin{solution*}
+
+    \end{solution*}
+
+    \part
+
+    \textbf{\large How well would bidirectional search work on this problem? List the order in which states will be visited. What is the
+    branching factor in each direction of the bidirectional search?}
+
+    \begin{solution*}
+
+    \end{solution*}
+
+
+   
+\end{homeworkProblem}
+
+\pagebreak
+
+%Part 2%
+\begin{homeworkProblem}
+    \textbf{\large Correct vs. Not Correct}\\\\
+
+    \part  
+    
+    \large Breadth-first search is a special case of uniform-cost search.\\\\
+
+    \part
+    
+    \large Depth-first search is a special case of best-first tree search.\\\\
+
+    \part
+    
+    \large Uniform-cost search is a special case of $A^{*}$ search.\\\\
+
+
+    \part
+    \large Depth-first graph search is guaranteed to return an optimal solution\\\\
+
+    \part
+    \large Breadth-first graph search is guaranteed to return an optimal solution.\\\\
+
+    \part
+    \large Uniform-cost graph search is guaranteed to return an optimal solution.\\\\
+
+    \part
+    \large $A^{*}$ graph search is guaranteed to return an optimal solution if the heuristic is consistent.\\\\
+
+    \part
+    \large $A^{*}$ graph search is guaranteed to expand no more nodes than depth-first graph search if the heuristic is consistent.\\\\
+
+    \part 
+    \large $A^{*}$ graph search is guaranteed to expand no more nodes than uniform-cost graph search if the heuristic is consistent.\\\\
+
+
+   
+\end{homeworkProblem}
+
+\pagebreak
+
+%Part 3%
+\begin{homeworkProblem}
+    \textbf{\large Iterative deepening is sometimes used as an alternative to breadth first search. Give one advantage
+    of iterative deepening over BFS, and give one disadvantage of iterative deepening as compared with BFS. Be concise and
+    specific.}\\\\
+
+\end{homeworkProblem}
+
+\pagebreak
+
+%Part 5
+\begin{homeworkProblem}
+    \textbf{\large Prove that if a heuristic is consistent, then it must be admissible. Construct an example of an admissible heuristic that is not consistent. (Hint: You can draw a small graph of 3 nodes and write arbitrary cost and heuristic values so that the heuristic is admissible but not consistent.)}\\\\
+
+    
+\end{homeworkProblem}
+
+\pagebreak
+
+%Part 6
+\begin{homeworkProblem}
+    \textbf{\large In a Constraint Satisfaction Problem search, explain why it is a good heuristic to choose the variable that is most constrained but the value that is least constraining.}\\\\
+
+    
+\end{homeworkProblem}
+\pagebreak
+%Part 7%
+\begin{homeworkProblem}
+    \textbf{\large Consider the following game tree, where the first move is made by the MAX player and the second move is made by the MIN player.}\\\\
+
+   
+    \part 
+
+    \textbf{\large What is the best move for the MAX player using the minimax procedure?}\\\\
+
+    \part 
+
+    \textbf{\large Perform a left-to-right (left branch first, then right branch) alpha-beta pruning on the tree. That is, draw only the parts of the tree that are visited and don't draw branches that are cut off (no need to show the alpha or beta values).}\\\\
+
+    \part 
+
+    \textbf{\large Do the same thing as in the previous question, but with a right-to-left ordering of the actions. Discuss why different pruning occurs.}
+
+
+\end{homeworkProblem}
+\pagebreak 
+
+%Part 8%
+\begin{homeworkProblem}
+\textbf{\large Which of the following are admissible, given admissible heuristics $h_1, h_2$? Which of the following
+are consistent, given consistent heuristics $h_1, h_2$? Justify your ans}
+
+\part 
+
+\large $h(n) = min(h_1(n), h_2(n))$\\\\
+
+\part 
+
+\large $h(n) = \omega h_1(n) + (1-\omega)h_2(n)$, where $0 \le \omega \le 1$.\\\\
+
+
+\part
+
+\large $h(n) = max(h_1(n), h_2(n))$\\\\
+
+\end{homeworkProblem}
+\pagebreak
+%Part 9%
+\begin{homeworkProblem}
+    \textbf{\large Simulated annealing is an extension of hill climbing, which uses randomness to avoid getting stuck
+    in local maxima and plateaux.}
+
+    \part 
+    \large For what types of problems will hill climbing work better than simulated annealing? In other words, when is the
+    random part of simulated annealing not necessary?\\\\
+    
+
+    \part 
+
+    \large For what types of problems will randomly guessing the state work just as well as simulated annealing? In other
+    words, when is the hill-climbing part of simulated annealing not necessary?\\\\
+
+
+    \part 
+
+    \large Reasoning from your answers to parts (a) and (b) above, for what types of problems is simulated annealing a useful
+    technique? In other terms, what assumptions about the shape of the value function are implicit in the design of
+    simulated annealing?\\\\
+
+    \part 
+
+    \large As defined in your textbook, simulated annealing returns the current state when the end of the annealing schedule is
+    reached and if the annealing schedule is slow enough. Given that we know the value (measure of goodness) of each
+    state we visit, is there anything smarter we could do?\\\\
+
+    \part 
+
+    \large Simulated annealing requires a very small amount of memory, just enough to store two states: the current state and
+    the proposed next state. Suppose we had enough memory to hold two million states. Propose a modification to
+    simulated annealing that makes productive use of the additional memory. In particular, suggest something that will
+    likely perform better than just running simulated annealing a million times consecutively with random restarts. [Note:
+    There are multiple correct answers here.]\\\\
+    
+    \part
+    
+    \large Gradient ascent search is prone to local optima just like hill climbing. Describe how you might adapt randomness in
+    simulated annealing to gradient ascent search avoid trap of local maximum.\\\\
+
+    
+\end{homeworkProblem}
+
+
+
+\end{document}

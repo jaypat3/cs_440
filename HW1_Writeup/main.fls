@@ -1,8 +1,8 @@
-PWD /Users/alanwu/Documents/GitHub/cs_440
+PWD /Users/alanwu/Documents/GitHub/cs_440/HW1_Writeup
 INPUT /usr/local/texlive/2022/texmf.cnf
 INPUT /usr/local/texlive/2022/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2022/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/alanwu/Documents/GitHub/cs_440/main.tex
+INPUT /Users/alanwu/Documents/GitHub/cs_440/HW1_Writeup/main.tex
 OUTPUT main.log
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls

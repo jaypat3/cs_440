@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1677028601 "/Users/alanwu/Documents/GitHub/cs_440/main.tex" "main.pdf" "main" 1677028603
-  "/Users/alanwu/Documents/GitHub/cs_440/main.tex" 1677028601 23582 6f49c0d36389ab79775b7946b3228088 ""
+["pdflatex"] 1678250305 "/Users/alanwu/Documents/GitHub/cs_440/HW1_Writeup/main.tex" "main.pdf" "main" 1678250306
+  "/Users/alanwu/Documents/GitHub/cs_440/HW1_Writeup/main.tex" 1677028667 23582 6f49c0d36389ab79775b7946b3228088 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -151,8 +151,8 @@
   "figure1.png" 1676350814 29122 eedcb01ed85366e973e1dbcd647cda58 ""
   "forward_vs_adaptive.png" 1676989601 9555 69974ddf965b6095912e1bd24d5aee78 ""
   "forward_vs_backward.png" 1676989601 9395 cede9544f1bf2d3ec75fcd3be5234f17 ""
-  "main.aux" 1677028603 1122 cfd03c31cff7258d9754177d8b3ec8c2 "pdflatex"
-  "main.tex" 1677028601 23582 6f49c0d36389ab79775b7946b3228088 ""
+  "main.aux" 1678250306 1122 cfd03c31cff7258d9754177d8b3ec8c2 "pdflatex"
+  "main.tex" 1677028667 23582 6f49c0d36389ab79775b7946b3228088 ""
   (generated)
   "main.aux"
   "main.log"
