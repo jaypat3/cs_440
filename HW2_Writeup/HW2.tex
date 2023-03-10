@@ -152,6 +152,20 @@
 %Part 1%
 \begin{homeworkProblem}
     \textbf{\large Tracing Operation $A^{*}$ from Lugoj to Bucharest}\\\\
+    By applying the $A^{*}$ tree search algorithm on the graph using the straight line distance heuristic, we end up with the following sequence of nodes expanded in order, written in tuples in the form described in the assignment:
+    \begin{align}
+        (Lugoj, 244, 0, 244) \\
+        (Mehadia, 311, 70, 241) \\
+        (Lugoj, 384, 140, 244) \\
+        (Drobeta, 387, 145, 242) \\
+        (Craiova, 425, 265, 160) \\
+        (Timisoara, 440, 111, 329) \\
+        (Mehadia, 451, 210, 241) \\
+        (Mehadia, 461, 220, 241) \\
+        (Lugoj, 466, 222, 244) \\
+        (Pitesti, 503, 403, 100) \\
+        (Bucharest, 504, 504, 0)
+    \end{align}
 
 \end{homeworkProblem}
 
@@ -166,6 +180,16 @@
     with limit 3, and iterative deepening search.}
 
     \begin{solution*}
+        The list of states visited for each search algorithm is as follows: \\
+        For Breadth-First Search: $(1,2,3,4,5,6,7,8,9,10,11)$ \\
+        For Depth-Limited Search, limit 3: $(1,2,4,8,9,5,10,11)$ \\
+        For Iterative Deepening search:
+        \begin{align*}
+            &Limit = 0   &(1) \\
+            &Limit = 1   &(1,2,3) \\
+            &Limit = 2   &(1,2,4,5,3,6,7) \\
+            &Limit = 3   &(1,2,4,8,9,5,10,11) \\
+        \end{align*}
 
     \end{solution*}
 
@@ -175,7 +199,11 @@
     branching factor in each direction of the bidirectional search?}
 
     \begin{solution*}
-
+        The branching factor from the direction of the root node is 2, as every node has 2 children, and every parent node would have already been searched.
+        The branching factor from the direction of the goal node is 3, as we have to account for its 2 children as well as the parent node. \\
+        Asymptotically, bidirectional search is better than the other singular directional algorithms above (on the order of $O(2^{d/2}+3^{d/2})$ versus $O(2^{d})$)
+        but when d is a small value like in this problem, it is possible for it to not perform as well. \\
+        The explored states are: $(1,11,2,3,5,22,23,4,5)$.
     \end{solution*}
 
 
@@ -225,11 +253,15 @@
 
 \pagebreak
 
-%Part 3%
+%Part 4%
 \begin{homeworkProblem}
     \textbf{\large Iterative deepening is sometimes used as an alternative to breadth first search. Give one advantage
     of iterative deepening over BFS, and give one disadvantage of iterative deepening as compared with BFS. Be concise and
     specific.}\\\\
+    An advantage that IDS has over BFS is its efficient use of space. BFS uses $O(b^d)$ space as it must store at worst every single node in the tree of a depth shallower than the goal node.
+    In comparison, IDS is identical to Depth-First search during each one of its iterations. This means that IDS has a space complexity of $O(bd)$ or even $O(d)$ depending on the implementation, far better than the exponential space required for BFS. \\\\
+    IDS has the disadvantage of being much less efficient with time than BFS. While they are both similar asymptotically, with a complexity of $O(b^d)$, IDS needs to search a tree of depth $i$ for every single iteration $0\leq i\leq d$, whereas BFS needs to only search the tree of depth d once before finding the goal node. 
+    This means the runtime of IDS has a looser upper bound of $O(b^d + b^{d-1} + \ldots + b + 1)$, which is far more expensive practically.
 
 \end{homeworkProblem}
 
@@ -238,6 +270,29 @@
 %Part 5
 \begin{homeworkProblem}
     \textbf{\large Prove that if a heuristic is consistent, then it must be admissible. Construct an example of an admissible heuristic that is not consistent. (Hint: You can draw a small graph of 3 nodes and write arbitrary cost and heuristic values so that the heuristic is admissible but not consistent.)}\\\\
+    We will prove this claim using induction over all nodes. \\
+    Base case: Let $n_0$ be the goal node, and $n_1$ be a node one step away. By the definition of a consistent heuristic,
+    \begin{align*}
+        h(n_1) &\leq c(n_1, a, n_0) + h(n_0) \\
+        h(n_1) &\leq c(n_1, a, n_0) + 0 \\
+        h(n_1) &\leq h^{*}(n_1)
+    \end{align*}
+    as the heuristic is defined to be 0 at the goal node, and the cost of the path from $n_1$ to $n_0$ is exactly the true cost of the path to the goal, $h^{*}(n_1)$.
+    So, h demonstrates admissible behavior for the base case. \\
+    Inductive hypothesis: Let the condition $h(n_k) \leq h^{*}(n_k)$ hold for some node $n_k$ that is $k$ steps away from the goal node. \\
+    Inductive step: We'll now look at a node $n_{k+1}$ that is $k+1$ steps away from the goal node. By the definition of consistency,
+    \begin{align*}
+        h(n_{k+1}) &\leq c(n_{k+1}, a, n_k) + h(n_k) \\
+    \end{align*}
+    By the inductive hypothesis, 
+    \begin{align*}
+        h(n_{k+1}) &\leq c(n_{k+1}, a, n_k) + h^{*}(n_k) \\
+    \end{align*}
+    Now notice that $c(n_{k+1}, a, n_k) + h^{*}(n_k)$ is exactly the true distance from the node $n_{k+1}$. So, then
+    \begin{align*}
+        h(n_{k+1}) &\leq h^{*}(n_{k+1}) \\
+    \end{align*}
+    And so the heuristic is admissible for all nodes. \qed
 
     
 \end{homeworkProblem}
@@ -259,14 +314,28 @@
     \part 
 
     \textbf{\large What is the best move for the MAX player using the minimax procedure?}\\\\
-
+        The MAX player here has two moves, to go to state B (we'll call this action $a_1$) or go to state C ($a_2$). 
+        If MAX chooses $a_1$, then MAX will end with a utility of 3. If MAX choose $a_2$, it ends with a utility of 4 as the game progresses towards state H. 
+        We can check this result directly using the definition of the MINIMAX function:
+        \begin{align*}
+            MINIMAX(root) &= max(min(3,5), min(max(min(0,7), 5), max(7,8), 4)) \\
+            &= max(3, min(5,8,4)) \\
+            &= max(3,4) = 4
+        \end{align*} \\
     \part 
 
     \textbf{\large Perform a left-to-right (left branch first, then right branch) alpha-beta pruning on the tree. That is, draw only the parts of the tree that are visited and don't draw branches that are cut off (no need to show the alpha or beta values).}\\\\
+        \includegraphics*[scale=0.2]{lefttoright.png} \\\\
+
 
     \part 
 
-    \textbf{\large Do the same thing as in the previous question, but with a right-to-left ordering of the actions. Discuss why different pruning occurs.}
+    \textbf{\large Do the same thing as in the previous question, but with a right-to-left ordering of the actions. Discuss why different pruning occurs.} \\\\
+        \includegraphics*[scale=0.2]{righttoleft.png} \\
+    The differences in pruning arise because we are visiting the nodes in a different order. When going from left to right, the left node is checked with other states
+    to see if pruning is a possibility, and if so, the right subtree is pruned. Conversely, going from right to left means that the right node is checked first and left subtrees are pruned.
+    This difference in order is what changes the result. For example, when pruning left to right, we visited node K before node L. Seeing as the utility of node K was 7, we pruned off the right subtree of G 
+    (as the MIN player would rather go to node F regardless of what node K was). Similarly, when going from right to left, the left subtree of G was pruned (as the MIN player would have opted for node H). 
 
 
 \end{homeworkProblem}
