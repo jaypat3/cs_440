@@ -295,7 +295,7 @@
     \end{align*}
     And so the heuristic is admissible for all nodes. \qed \\
 
-    The graph below provides an example of a heuristic that is admissible and not consistent. \\
+    The graph below provides an example of a heuristic that is admissible and not consistent. Note that node D is the goal node.\\
     \includegraphics*[scale=0.2]{adnotcon.png} \\
     $h$ is admissible: $3\leq3$, $1\leq2$, $1\leq1$, $0\leq0$ \\
     $h$ is not consistent: $3\nleq1+1$
@@ -449,26 +449,39 @@ which is clearly always positive. So the best heuristic function is $h_c$.
 
     \part 
     \large For what types of problems will hill climbing work better than simulated annealing? In other words, when is the
-    random part of simulated annealing not necessary?\\\\
+    random part of simulated annealing not necessary?\\
     
+    Hill climbing is superior to simulated annealing when the value function has only one maximum throughout the search space.
+    In that case, there is no benefit to the randomness of simulated annealing, as it specifically aims to overcome getting stuck at local extrema by making random jumps, but we don't need this if the local extrema we get stuck at is exactly the global extrema we aim to find. \\
 
     \part 
 
     \large For what types of problems will randomly guessing the state work just as well as simulated annealing? In other
-    words, when is the hill-climbing part of simulated annealing not necessary?\\\\
+    words, when is the hill-climbing part of simulated annealing not necessary?\\
 
+    When there are no extrema and the value function is flat, then hill climbing has no advantage as there are no hills.
+    Any state in the search space is equally optimal, so randomly guessing would work just as well.  
+    Another case in which the hill climbing part isn't necessary is when the spread of values is random or doesn't have any good structure likes hills or continuous curves. 
+    An example could be a space in which every value except one is constant, and that other value is some positive integer, and thus the global maximum. 
+    In that case, randomly guessing the state will eventually lead us towards the global maximum, because there are no hills or structures to climb.\\
 
     \part 
 
     \large Reasoning from your answers to parts (a) and (b) above, for what types of problems is simulated annealing a useful
     technique? In other terms, what assumptions about the shape of the value function are implicit in the design of
-    simulated annealing?\\\\
+    simulated annealing?\\
+
+    Simulated annealing is most useful when a range of local maxima and plateaus exist in the value function, with definite structures like hills. 
+    In this case, simulated annealing can leverage its randomness to explore the search space around nonglobal maxima. 
+    Furthermore, you'd like this structure to have multiple maxima, so that there is a use for annealing. For example, polynomials would be a good shape to utilize simulated annealing on.\\
 
     \part 
 
     \large As defined in your textbook, simulated annealing returns the current state when the end of the annealing schedule is
     reached and if the annealing schedule is slow enough. Given that we know the value (measure of goodness) of each
-    state we visit, is there anything smarter we could do?\\\\
+    state we visit, is there anything smarter we could do?\\
+
+    We can store the current global maximum and its state in our memory, and update it if a bigger maximum is found. Since we know the value of each state, we can perform these comparisons. This allows us to determine the true global maximum in case annealing landed us in the wrong spot through an unlucky probability outcome, and the current state at the end of the annealing schedule isn't the global maximum but we had discovered this maximum earlier in our process. \\
 
     \part 
 
@@ -476,12 +489,21 @@ which is clearly always positive. So the best heuristic function is $h_c$.
     the proposed next state. Suppose we had enough memory to hold two million states. Propose a modification to
     simulated annealing that makes productive use of the additional memory. In particular, suggest something that will
     likely perform better than just running simulated annealing a million times consecutively with random restarts. [Note:
-    There are multiple correct answers here.]\\\\
+    There are multiple correct answers here.]\\
+
+    For each random jump that we make, store the state (and its objective function value). Make sure that for each random jump we perform, this jump does not land on a space whose value is stored already. This allows us to avoid repeating the same jump over and over again, and allows us to determine new maxima faster. Like how a closed list in a search algorithm prevents wasting time searching the same thing, storing each visited state ensures that more of the state space is covered in less time, allowing us to converge on a solution faster and more efficiently. Furthermore, we can select a global maximum from all the states that we have stored in memory to ensure that what we end with is indeed the global maximum value. \\
     
     \part
     
     \large Gradient ascent search is prone to local optima just like hill climbing. Describe how you might adapt randomness in
-    simulated annealing to gradient ascent search avoid trap of local maximum.\\\\
+    simulated annealing to gradient ascent search avoid trap of local maximum.\\
+
+    We can use the ideas of simulated annealing to improve the robustness of gradient ascent. 
+    We start by first involving an appropriate schedule mapping from time to temperature.
+    Rather than deterministically moving up the direction of the gradient, we can randomly sample a direction and find the slope in that direction.
+    If the slope is positive, we move up in that direction, otherwise we only move in that direction with the same probability as defined in the normal simulated annealing algorithm. 
+    In this way, the algorithm is less likely to get stuck in local minima, as instead of taking every direction into consideration at the same time (and running the risk of getting caught in a local maximum that exists in any one of those dimensions),
+        the algorithms only concerns itself with one direction at a time, and so can possibly avoid extrema that exist in the other directions. 
 
 
     
