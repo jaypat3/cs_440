@@ -8,6 +8,7 @@
 \usepackage{tikz}
 \usepackage[plain]{algorithm}
 \usepackage{algpseudocode}
+\usepackage{amssymb}
 
 \usetikzlibrary{automata,positioning}
 
@@ -292,7 +293,15 @@
     \begin{align*}
         h(n_{k+1}) &\leq h^{*}(n_{k+1}) \\
     \end{align*}
-    And so the heuristic is admissible for all nodes. \qed
+    And so the heuristic is admissible for all nodes. \qed \\
+
+    The graph below provides an example of a heuristic that is admissible and not consistent. \\
+    \includegraphics*[scale=0.2]{adnotcon.png} \\
+    $h$ is admissible: $3\leq3$, $1\leq2$, $1\leq1$, $0\leq0$ \\
+    $h$ is not consistent: $3\nleq1+1$
+    
+
+
 
     
 \end{homeworkProblem}
@@ -352,20 +361,84 @@ are consistent, given consistent heuristics $h_1, h_2$? Justify your ans}
 \part 
 
 \large $h(n) = min(h_1(n), h_2(n))$\\\\
+Assume $h_1$ and $h_2$ are admissible.
+\begin{align*}
+    h(n) &= min(h_1(n), h_2(n)) \\
+    &\leq min(h^{*}(n), h^{*}(n)) \\
+    &= h^{*}(n)
+\end{align*}
+So, $h$ is also admissible. Now assume $h_1$ and $h_2$ are consistent.
+\begin{align*}
+    h(n) &= min(h_1(n), h_2(n)) \\
+    &\leq min(c(n,a,n')+h_1(n'), c(n,a,n')+h_2(n')) \\
+    &= c(n,a,n') + min(h_1(n'), h_2(n')) \\
+    &= c(n,a,n') + h(n')
+\end{align*}
+The last line follows from the definition of $h$. So, $h$ is also consistent.
 
 \part 
 
 \large $h(n) = \omega h_1(n) + (1-\omega)h_2(n)$, where $0 \le \omega \le 1$.\\\\
-
+Assume $h_1$ and $h_2$ are admissible.
+\begin{align*}
+    h(n) &= \omega h_1(n) + (1-\omega)h_2(n) \\
+    &\leq \omega h^*(n) + (1-\omega)h^*(n) \\
+    &= \omega h^*(n) - \omega h^*(n) + h^*(n) \\
+    &= h^*(n)
+\end{align*}
+So, $h$ is also admissible. Now assume $h_1$ and $h_2$ are consistent.
+\begin{align*}
+    h(n) &= \omega h_1(n) + (1-\omega)h_2(n) \\
+    &\leq \omega(c(n,a,n')+h_1(n')) + (1-\omega)(c(n,a,n')+h_2(n')) \\
+    &= \omega c(n,a,n') + \omega h_1(n') + c(n,a,n') + h_2(n') -\omega c(n,a,n')-\omega h_2(n') \\
+    &= c(n,a,n')+ \omega h_1(n') + h_2(n')- \omega h_2(n') \\
+    &= c(n,a,n')+ \omega h_1(n') + (1- \omega)h_2(n') \\
+    &= c(n,a,n')+h(n')
+\end{align*}
+The last line follows from the definition of $h$. So, $h$ is also consistent.
 
 \part
 
 \large $h(n) = max(h_1(n), h_2(n))$\\\\
+Assume $h_1$ and $h_2$ are admissible.
+\begin{align*}
+    h(n) &= max(h_1(n), h_2(n)) \\
+    &\leq max(h^{*}(n), h^{*}(n)) \\
+    &= h^{*}(n)
+\end{align*}
+So, $h$ is also admissible. Now assume $h_1$ and $h_2$ are consistent.
+\begin{align*}
+    h(n) &= max(h_1(n), h_2(n)) \\
+    &\leq max(c(n,a,n')+h_1(n'), c(n,a,n')+h_2(n')) \\
+    &= c(n,a,n') + max(h_1(n'), h_2(n')) \\
+    &= c(n,a,n') + h(n')
+\end{align*}
+The last line follows from the definition of $h$. So, $h$ is also consistent. \\
 
 
 \part
 
-\large Which of these heuristics, a, b, or c, would you choose?
+\large Which of these heuristics, a, b, or c, would you choose? \\
+Given that all three of these heuristics satisfy our needs for optimality (being either admissible or consistent), we want to pick the heuristic that is the "largest," or dominates the others.
+The perfect heuristic would be one where $h(n)=h^*(n)$ for all $n$, as the algorithm would travel along the optimal path. Getting as close to that would be ideal. So, we can immediately rule out the heuristic from part A, as part C is clearly bigger for all $n$.
+Our claim is that the heuristic from part C (call it $h_c$) dominates the one from part B ($h_b$). To show this, we prove that the function $h_c-h_b$ is always positive for all $n$.
+\begin{align*}
+    h_c(n) - h_b(n) &= max(h_1(n), h_2(n))-\omega h_1(n) - (1-\omega)h_2(n)
+\end{align*}
+
+\[
+    = \begin{cases} 
+    h_2(n)-\omega h_1(n)+ \omega h_2(n) - h_2(n) & h_2(n) > h_1(n) \\
+    h_1(n)-\omega h_1(n)+ \omega h_2(n) - h_2(n) & h_1(n) > h_2(n) \\
+    \end{cases}
+\]
+\[
+    = \begin{cases} 
+    \omega (h_1(n)+h_2(n)) & h_2(n) > h_1(n) \\
+    (1-\omega)(h_1(n)-h_2(n)) & h_1(n) > h_2(n) \\
+    \end{cases}
+\]
+which is clearly always positive. So the best heuristic function is $h_c$.
 
 \end{homeworkProblem}
 \pagebreak
