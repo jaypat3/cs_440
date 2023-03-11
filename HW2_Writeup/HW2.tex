@@ -218,34 +218,34 @@
 
     \part  
     
-    \large Breadth-first search is a special case of uniform-cost search.\\\\
+    \large True: Breadth-first search is a special case of uniform-cost search, if we set the cost function c(s,s') = 1 for all states s and s'.\\\\
 
     \part
     
-    \large Depth-first search is a special case of best-first tree search.\\\\
+    \large True: Depth-first search is a special case of best-first tree search with $f(n) := 1/depth(n)$\\\\
 
     \part
     
-    \large Uniform-cost search is a special case of $A^{*}$ search.\\\\
+    \large True: Uniform-cost search is a special case of $A^{*}$ search with h(s) = 0 for all states s.\\\\
 
 
     \part
-    \large Depth-first graph search is guaranteed to return an optimal solution\\\\
+    \large False: Depth-first graph search is NOT guaranteed to return an optimal solution, as it could go down directly to a sub-optimal solution simply because it's the first and longest path.\\\\
 
     \part
-    \large Breadth-first graph search is guaranteed to return an optimal solution.\\\\
+    \large False: Breadth-first graph search is NOT guaranteed to return an optimal solution unless all actions have the same cost, as it could find a very expensive but short path to a solution state (think root $\xrightarrow{}$ solution but the cost is 500, but there is another path root $\xrightarrow{}$ intermediary $\xrightarrow{}$ solution whose costs for both actions are 1).\\\\
 
     \part
-    \large Uniform-cost graph search is guaranteed to return an optimal solution.\\\\
+    \large True: Uniform-cost graph search is guaranteed to return an optimal solution, as it expands nodes based on smallest cost, so the solution it finds is optimal.\\\\
 
     \part
-    \large $A^{*}$ graph search is guaranteed to return an optimal solution if the heuristic is consistent.\\\\
+    \large True: $A^{*}$ graph search is guaranteed to return an optimal solution if the heuristic is consistent, since by theorems in the slides consistent heuristics are optimal (slide 17 on the A* lecture slides).\\\\
 
     \part
-    \large $A^{*}$ graph search is guaranteed to expand no more nodes than depth-first graph search if the heuristic is consistent.\\\\
+    \large False: $A^{*}$ graph search is NOT guaranteed to expand no more nodes than depth-first graph search if the heuristic is consistent, since DFS can go immediately to a sub-optimal solution in its first run down, while A* will take a long time expanding many nodes and determine the most optimal solution.\\\\
 
     \part 
-    \large $A^{*}$ graph search is guaranteed to expand no more nodes than uniform-cost graph search if the heuristic is consistent.\\\\
+    \large True: $A^{*}$ graph search is guaranteed to expand no more nodes than uniform-cost graph search if the heuristic is consistent, since the heuristic makes the search more informed. We use that UCS is a special case of A* with $h(n) = 0$ for all n. Since h as the estimated shortest cost is necessarily nonnegative, it follows that $f(n) = g(n) + h(n) >= g(n) + 0$ for all n, and thus if we have two heuristics: 0 and h(n), we have a more informed heuristic h(n), which by definition will expand no more nodes than the less informed heuristic 0. \\\\
 
 
    
@@ -302,7 +302,10 @@
 %Part 6
 \begin{homeworkProblem}
     \textbf{\large In a Constraint Satisfaction Problem search, explain why it is a good heuristic to choose the variable that is most constrained but the value that is least constraining.}\\\\
-
+    Choosing a fail first/most constrained variable is a good heuristic because it allows us to quickly prune that branch of the search tree, letting us avoid pointless searches through other variables. In other words, if a variable has a lot of constraints, then it will likely have very few outcomes, if there even exist any at all which satisfy the constraints it has as well as the previous constraints which led to this point of the tree. Since it the most selective, it would be good to satisfy its constraints earlier rather than later down the tree. If we selected a less restrictive variable first, it could lead to many more branches, each of which will eventually settle upon this particular constraint, and most branches will terminate there because they don't satisfy such restrictive constraints. However, this takes up a lot of extra time (to compute down the tree) and space (to store each branch of the tree), and so it is best to consider the most restrictive variables first, because they will avoid these useless terminating searches where they are not necessary.\\\\
+    Next, it would be best to consider the least constraining value for the variable. The only way to fail is to test all the values, so there is no reason to attempt fail first strategies in which we purposefully test values that will result in failure first. In this moment, it is best to select a value which will allow the largest range of potential variables stemming from it, because there is a greater chance of finding a match in those possibilities. This is unlike choosing the most constraining variable because the values that we are ordering already satisfy the given constraints: by selecting the most constraining value for the other neighbors, it only limits the trees that one can make and reduces the chances of finding a solution because there are less branches to search. It is important to note that we are not saying that more branches is better, because this is untrue, as shown in choosing the most constrained variables first. Instead, we are saying that in the given constraints, it is best to select values that allow us to search more items, since in that moment there is no knowledge of which branch is better. Thus, since the probability of finding a solution for a branch is almost equal to every other branch, it is best that we allow ourselves the freedom to consider more branches first.\\\\
+    Thus, by choosing the most constrained variable and the least constraining value, we avoid pointless searches and search more branches earlier in time, allowing us to find solutions faster.
+    
     
 \end{homeworkProblem}
 \pagebreak
