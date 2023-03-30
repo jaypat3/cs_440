@@ -86,9 +86,9 @@
 %   - Author
 %
 
-\newcommand{\hmwkTitle}{Homework\ \#2}
-\newcommand{\hmwkName}{Search Problems in AI}
-\newcommand{\hmwkDate}{March 10, 2023}
+\newcommand{\hmwkTitle}{Homework\ \#3 Part 1}
+\newcommand{\hmwkName}{Probabilistic Reasoning}
+\newcommand{\hmwkDate}{April 14, 2023}
 \newcommand{\hmwkClass}{CS 440: Introduction to Artificial Intelligence}
 \newcommand{\hmwkClassInstructor}{Professor Abdelsam Boularias}
 
@@ -151,199 +151,97 @@
 
 %Part 1%
 \begin{homeworkProblem}
-    \textbf{\large Tracing Operation $A^{*}$ from Lugoj to Bucharest}\\\\
-
-\end{homeworkProblem}
-
-\pagebreak
-
-%Part 2%
-\begin{homeworkProblem}
-    \textbf{\large Consider a state space where the start state is number 1 and each state $k$ has two successors: numbers $2k$ and $2k + 1$.}\\\\
-    \part
-
-    \textbf{\large Suppose the goal state is 11. List the order in which states will be visited for breadthfirst search, depth-limited search
-    with limit 3, and iterative deepening search.}
-
-    \begin{solution*}
-
-    \end{solution*}
-
-    \part
-
-    \textbf{\large How well would bidirectional search work on this problem? List the order in which states will be visited. What is the
-    branching factor in each direction of the bidirectional search?}
-
-    \begin{solution*}
-
-    \end{solution*}
-
-
-   
-\end{homeworkProblem}
-
-\pagebreak
-
-%Part 2%
-\begin{homeworkProblem}
-    \textbf{\large Correct vs. Not Correct}\\\\
-
-    \part  
-    
-    \large Breadth-first search is a special case of uniform-cost search.\\\\
-
-    \part
-    
-    \large Depth-first search is a special case of best-first tree search.\\\\
-
-    \part
-    
-    \large Uniform-cost search is a special case of $A^{*}$ search.\\\\
-
-
-    \part
-    \large Depth-first graph search is guaranteed to return an optimal solution\\\\
-
-    \part
-    \large Breadth-first graph search is guaranteed to return an optimal solution.\\\\
-
-    \part
-    \large Uniform-cost graph search is guaranteed to return an optimal solution.\\\\
-
-    \part
-    \large $A^{*}$ graph search is guaranteed to return an optimal solution if the heuristic is consistent.\\\\
-
-    \part
-    \large $A^{*}$ graph search is guaranteed to expand no more nodes than depth-first graph search if the heuristic is consistent.\\\\
+    \textbf{\large Consider the following Bayesian network, where variables A through E are all Boolean valued. Note: there is a typo in the image, it should be $P(A = true) = 0.2$ instead of $P(D = true) = 0.2$}\\\\
+    \includegraphics[width=1\textwidth]{Problem1.png}
 
     \part 
-    \large $A^{*}$ graph search is guaranteed to expand no more nodes than uniform-cost graph search if the heuristic is consistent.\\\\
+    
+    \textbf{What is the probability that all five of these Boolean variables are simultaneously true? [Hint: You have to compute the joint probability distribution. The structure of the Bayesian network suggests how
+    the joint probability distribution is decomposed to the conditional probabilities available]}
+
+    \part 
+    
+    \textbf{What is the probability that all five of these Boolean variables are simultaneously false? [Hint: Answer similarly to above.]}
+    \begin{solution*}
+
+    \end{solution*}
+    \part 
+    
+    \textbf{What is the probability that A is false given that the four other variables are all known to be true?}
+    \begin{solution*}
+
+    \end{solution*}
+
+\end{homeworkProblem}
+
+\pagebreak
+
+%Part 2%
+\begin{homeworkProblem}
+    \includegraphics[width=1\textwidth]{Problem2.png}
+
+    \part 
+    \textbf{Calculate $P(Burglary | JohnsCalls = true, MaryCalls = true)$ and show in detail the calculations that take place. Use your book to confirm that your answer is correct.}
+
+    \begin{solution*}
+
+    \end{solution*}
+
+    \part
+    \textbf{Suppose a Bayesian network has the from of a $chain:$ a sequence of Boolean variables $X_1,....X_n$ where $Parents(X_i) = X_{i-1}$ for $i = 2, ...., n$. What is the complexity of computing $P(X_1|Xn = true)$ using enumeration. What is the complexity with variable elimination?}
+
+    \begin{solution*}
+
+    \end{solution*}
 
 
-   
 \end{homeworkProblem}
 
 \pagebreak
 
 %Part 3%
 \begin{homeworkProblem}
-    \textbf{\large Iterative deepening is sometimes used as an alternative to breadth first search. Give one advantage
-    of iterative deepening over BFS, and give one disadvantage of iterative deepening as compared with BFS. Be concise and
-    specific.}\\\\
+    \textbf{\large Suppose you are working for a financial institution and you are asked to implement a fraud detection system. You plan to use the following information: }
 
-\end{homeworkProblem}
+    \begin{itemize}
+        \item When the card holder is travelling abroad, fraudulent transactions are more likely since tourists are prime targets for
+        thieves. More precisely, 1% of transactions are fraudulent when the card holder is travelling, where as only 0.4%
+        of the transactions are fraudulent when she is not travelling. On average, 5% of all transactions happen while the
+        card holder is travelling. If a transaction is fraudulent, then the likelihood of a foreign purchase increases, unless the
+        card holder happens to be travelling. More precisely, when the card holder is not travelling, 10% of the fraudulent
+        transactions are foreign purchases where as only 1% of the legitimate transactions are foreign purchases. On the
+        other hand, when the card holder is travelling, then 90% of the transactions are foreign purchases regardless of the
+        legitimacy of the transactions.
+        \item Purchases made over the internet are more likely to be fraudulent. This is especially true for card holders who don’t
+        own any computer. Currently, 75% of the population owns a computer or smart phone and for those card holders,
+        1% of their legitimate transactions are done over the internet, however this percentage increases to 2% for fraudulent
+        transactions. For those who don’t own any computer or smart phone, a mere 0.1% of their legitimate transactions
+        is done over the internet, but that number increases to 1.1% for fraudulent transactions. Unfortunately, the credit
+        card company doesn’t know whether a card holder owns a computer or smart phone, however it can usually guess by
+        verifying whether any of the recent transactions involve the purchase of computer related accessories. In any given
+        week, 10% of those who own a computer or smart phone purchase (with their credit card) at least one computer
+        related item as opposed to just 0.1% of those who don’t own any computer or smart phone.
+    \end{itemize}
+    \part
 
-\pagebreak
+    \textbf{Construct a Bayes Network to identify fraudulent transactions.}
 
-%Part 5
-\begin{homeworkProblem}
-    \textbf{\large Prove that if a heuristic is consistent, then it must be admissible. Construct an example of an admissible heuristic that is not consistent. (Hint: You can draw a small graph of 3 nodes and write arbitrary cost and heuristic values so that the heuristic is admissible but not consistent.)}\\\\
+    \begin{solution*}
 
-    
-\end{homeworkProblem}
+    \end{solution*}
 
-\pagebreak
+    \part
 
-%Part 6
-\begin{homeworkProblem}
-    \textbf{\large In a Constraint Satisfaction Problem search, explain why it is a good heuristic to choose the variable that is most constrained but the value that is least constraining.}\\\\
+    \textbf{What is the prior probability (i.e., before we search for previous computer related purchases and before we verify
+    whether it is a foreign and/or an internet purchase) that the current transaction is a fraud? What is the probability that
+    the current transaction is a fraud once we have verified that it is a foreign transaction, but not an internet purchase
+    and that the card holder purchased computer related accessories in the past week?}
 
-    
-\end{homeworkProblem}
-\pagebreak
-%Part 7%
-\begin{homeworkProblem}
-    \textbf{\large Consider the following game tree, where the first move is made by the MAX player and the second move is made by the MIN player.}\\\\
+    \begin{solution*}
+
+    \end{solution*}
+
 
    
-    \part 
-
-    \textbf{\large What is the best move for the MAX player using the minimax procedure?}\\\\
-
-    \part 
-
-    \textbf{\large Perform a left-to-right (left branch first, then right branch) alpha-beta pruning on the tree. That is, draw only the parts of the tree that are visited and don't draw branches that are cut off (no need to show the alpha or beta values).}\\\\
-
-    \part 
-
-    \textbf{\large Do the same thing as in the previous question, but with a right-to-left ordering of the actions. Discuss why different pruning occurs.}
-
-
 \end{homeworkProblem}
-\pagebreak 
-
-%Part 8%
-\begin{homeworkProblem}
-\textbf{\large Which of the following are admissible, given admissible heuristics $h_1, h_2$? Which of the following
-are consistent, given consistent heuristics $h_1, h_2$? Justify your answer}
-
-\part 
-
-\large $h(n) = min(h_1(n), h_2(n))$\\\\
-
-\part 
-
-\large $h(n) = \omega h_1(n) + (1-\omega)h_2(n)$, where $0 \le \omega \le 1$.\\\\
-
-
-\part
-
-\large $h(n) = max(h_1(n), h_2(n))$\\\\
-
-
-\part
-
-\large Which of these heuristics, a, b, or c, would you choose?
-
-\end{homeworkProblem}
-\pagebreak
-%Part 9%
-\begin{homeworkProblem}
-    \textbf{\large Simulated annealing is an extension of hill climbing, which uses randomness to avoid getting stuck
-    in local maxima and plateaux.}
-
-    \part 
-    \large For what types of problems will hill climbing work better than simulated annealing? In other words, when is the
-    random part of simulated annealing not necessary?\\\\
-    
-
-    \part 
-
-    \large For what types of problems will randomly guessing the state work just as well as simulated annealing? In other
-    words, when is the hill-climbing part of simulated annealing not necessary?\\\\
-
-
-    \part 
-
-    \large Reasoning from your answers to parts (a) and (b) above, for what types of problems is simulated annealing a useful
-    technique? In other terms, what assumptions about the shape of the value function are implicit in the design of
-    simulated annealing?\\\\
-
-    \part 
-
-    \large As defined in your textbook, simulated annealing returns the current state when the end of the annealing schedule is
-    reached and if the annealing schedule is slow enough. Given that we know the value (measure of goodness) of each
-    state we visit, is there anything smarter we could do?\\\\
-
-    \part 
-
-    \large Simulated annealing requires a very small amount of memory, just enough to store two states: the current state and
-    the proposed next state. Suppose we had enough memory to hold two million states. Propose a modification to
-    simulated annealing that makes productive use of the additional memory. In particular, suggest something that will
-    likely perform better than just running simulated annealing a million times consecutively with random restarts. [Note:
-    There are multiple correct answers here.]\\\\
-    
-    \part
-    
-    \large Gradient ascent search is prone to local optima just like hill climbing. Describe how you might adapt randomness in
-    simulated annealing to gradient ascent search avoid trap of local maximum.\\\\
-
-
-    
-
-    
-\end{homeworkProblem}
-
-
-
 \end{document}
