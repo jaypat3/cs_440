@@ -159,7 +159,7 @@
     \textbf{What is the probability that all five of these Boolean variables are simultaneously true? [Hint: You have to compute the joint probability distribution. The structure of the Bayesian network suggests how
     the joint probability distribution is decomposed to the conditional probabilities available]}\\
     $P(A,B,C,D,E) = P(A) \cdot P(B) \cdot P(C) \cdot P(D | A=T, B=T) \cdot P(E | B=T, C=T) \\
- = 0.2 \cdot 0.5 \cdot 0.8 \cdot 0.1 \cdot 0.3 = 0.0048$\\
+ = 0.2 \cdot 0.5 \cdot 0.8 \cdot 0.1 \cdot 0.3 = 0.0024$\\
 
     \part 
     
@@ -174,8 +174,8 @@
     $P(\neg A | B, C, D, E) = \frac{P(\neg A, B, C, D, E)}{P(B,C,D,E)}$\\
     $P(\neg A, B, C, D, E) = P(\neg A) \cdot P(B) \cdot P(C) \cdot P(D | A=F, B=T) \cdot P(E | B=T, C=T) \\
     = (1-0.2) \cdot 0.5 \cdot 0.8 \cdot 0.6 \cdot 0.3 = 0.0576$\\
-    $P(B,C,D,E) = P(A,B,C,D,E) + P(\neg A, B, C, D, E) = 0.0048 + 0.0576 = 0.0624$\\
-    $P(\neg A | B, C, D, E) = \frac{0.0576}{0.0624} = 0.9230$
+    $P(B,C,D,E) = P(A,B,C,D,E) + P(\neg A, B, C, D, E) = 0.0024 + 0.0576 = 0.06$\\
+    $P(\neg A | B, C, D, E) = \frac{0.0576}{0.06} = 0.96$
 
 
 \end{homeworkProblem}
