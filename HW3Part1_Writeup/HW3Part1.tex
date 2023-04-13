@@ -157,20 +157,26 @@
     \part 
     
     \textbf{What is the probability that all five of these Boolean variables are simultaneously true? [Hint: You have to compute the joint probability distribution. The structure of the Bayesian network suggests how
-    the joint probability distribution is decomposed to the conditional probabilities available]}
+    the joint probability distribution is decomposed to the conditional probabilities available]}\\
+    $P(A,B,C,D,E) = P(A) \cdot P(B) \cdot P(C) \cdot P(D | A=T, B=T) \cdot P(E | B=T, C=T) \\
+ = 0.2 \cdot 0.5 \cdot 0.8 \cdot 0.1 \cdot 0.3 = 0.0048$\\
 
     \part 
     
-    \textbf{What is the probability that all five of these Boolean variables are simultaneously false? [Hint: Answer similarly to above.]}
-    \begin{solution*}
+    \textbf{What is the probability that all five of these Boolean variables are simultaneously false? [Hint: Answer similarly to above.]}\\
+     $P(\neg A,\neg B, \neg C, \neg D, \neg E) = P(\neg A) = P(\neg A) \cdot P(\neg B) \cdot P(\neg C) \cdot P(\neg D | A=F, B=F) \cdot P(\neg E | B=F, C=F) \\
+     = (1-0.2) \cdot (1-0.5) \cdot (1-0.8) \cdot (1-0.9) \cdot (1-0.2) \\
+     = 0.8 \cdot 0.5 \cdot 0.2 \cdot 0.1 \cdot 0.8 = 0.0064$\\
 
-    \end{solution*}
     \part 
     
-    \textbf{What is the probability that A is false given that the four other variables are all known to be true?}
-    \begin{solution*}
+    \textbf{What is the probability that A is false given that the four other variables are all known to be true?}\\
+    $P(\neg A | B, C, D, E) = \frac{P(\neg A, B, C, D, E)}{P(B,C,D,E)}$\\
+    $P(\neg A, B, C, D, E) = P(\neg A) \cdot P(B) \cdot P(C) \cdot P(D | A=F, B=T) \cdot P(E | B=T, C=T) \\
+    = (1-0.2) \cdot 0.5 \cdot 0.8 \cdot 0.6 \cdot 0.3 = 0.0576$\\
+    $P(B,C,D,E) = P(A,B,C,D,E) + P(\neg A, B, C, D, E) = 0.0048 + 0.0576 = 0.0624$\\
+    $P(\neg A | B, C, D, E) = \frac{0.0576}{0.0624} = 0.9230$
 
-    \end{solution*}
 
 \end{homeworkProblem}
 
