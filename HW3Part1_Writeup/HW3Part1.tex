@@ -187,18 +187,51 @@
     \includegraphics[width=1\textwidth]{Problem2.png}
 
     \part 
-    \textbf{Calculate $P(Burglary | JohnsCalls = true, MaryCalls = true)$ and show in detail the calculations that take place. Use your book to confirm that your answer is correct.}
+    \textbf{Calculate $P(Burglary | JohnsCalls = true, MaryCalls = true)$ and show in detail the calculations that take place. Use your book to confirm that your answer is correct.}\\
 
-    \begin{solution*}
+    The enumeration tree is shown:\\
 
-    \end{solution*}
+    \includegraphics[width=1\textwidth]{BurglarEnumerate.jpg}
+
+
+    $P(Burglary | JohnsCalls = true, MaryCalls = true) = P(B) \cdot \frac{P(J,M | B)}{P(J,M)}\\
+    = 0.001 \cdot \frac{(P(A|B) \cdot P (J,M|A)) + (P(\neg A|B) \cdot P(J,M|\neg A)) }{(P(J,M|A) \cdot P(A)) +(P(J,M|\neg A) \cdot P(\neg A))}$\\
+
+    $P(A|B) = \frac{P(A \cap B)}{P(B)} = \frac{(P(B) \cdot P(E) \cdot P(A|B,E))+(P(B) \cdot P(\neg E) \cdot P(A|B, \neg E))}{P(B)}\\
+    = \frac{(0.001 \cdot 0.002 \cdot 0.95)+(0.001 \cdot 0.998 \cdot 0.94)}{0.001} = 0.94002$\\
+
+    $P(J,M|A) = P(J|A) \cdot P(M|A) = 0.9 \cdot 0.7 = 0.63$\\
+
+    $P(J,M|\neg A) = P(J|\neg A) \cdot P(M|\neg A) = 0.05 \cdot 0.01 = 0.0005$\\
+
+    $P(\neg A|B) = 1-P(A|B) = 1-0.94002 = 0.05998$\\
+
+    $P(A) = (P(B)\cdot P(E) P(A|B,E)) + (P(B) \cdot P(\neg E) P(A|B,\neg E)) + (P(\neg B) \cdot P(E) \cdot P(A|\neg B, E)) + (P(\neg B) \cdot P(\neg E) \cdot P(A|\neg B, \neg E)) \\
+    = (0.001 \cdot 0.002 \cdot 0.95) + (0.001 \cdot 0.998 \cdot 0.94) + (0.999 \cdot 0.002 \cdot 0.29) + (0.999 \cdot 0.998 \cdot 0.001)\\
+    = 0.0025$\\
+
+    $P(\neg A) = 1-P(A) = 1-0.0025 = 0.99748$\\
+
+    Therefore: 
+
+    $P(Burglary | JohnCalls = true, MaryCalls = true) = 0.001 \cdot \frac{(0.94002 \cdot 0.63) + (0.05998 \cdot 0.0005)}{(0.63 \cdot 0.0025)+(0.0005 \cdot 0.99748)}\\
+    = 0.2841718$\\
+
+
+
+    
 
     \part
-    \textbf{Suppose a Bayesian network has the from of a $chain:$ a sequence of Boolean variables $X_1,....X_n$ where $Parents(X_i) = X_{i-1}$ for $i = 2, ...., n$. What is the complexity of computing $P(X_1|Xn = true)$ using enumeration. What is the complexity with variable elimination?}
+    \textbf{Suppose a Bayesian network has the from of a $chain:$ a sequence of Boolean variables $X_1,....X_n$ where $Parents(X_i) = X_{i-1}$ for $i = 2, ...., n$. What is the complexity of computing $P(X_1|Xn = true)$ using enumeration. What is the complexity with variable elimination?}\\
 
-    \begin{solution*}
+    The complexity for Enumeration: \\
+    
+    Above is the binary tree since we only care about the true values for $X_1$ and $X_N$. We are looking for $P(X_1|X_n = true)$. Given the tree above, we know that the binary tree will have $n$ levels that branch $n-2$ times. With the graph shown with 5 levels, it only branches 3 times. The above graph is missing the top level node. In this tree design there is a total of $2^{n-1}$ nodes. The space complexity will be $O(n)$ for dfs to traverse the tree and it will take $O(2^{n})$ time complexity, with $2^{n-1}$ nodes absorbed into $2^n$. \\
 
-    \end{solution*}
+    Now we will calculate the complexity for variable elimination: \\
+
+    
+
 
 
 \end{homeworkProblem}
