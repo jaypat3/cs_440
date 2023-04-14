@@ -230,7 +230,13 @@
 
     Now we will calculate the complexity for variable elimination: \\
 
-    
+    $P(X_1 | X_n = True) \\
+    = \alpha P(X_1) \sum_{X_2}{P(X_2|X_1)}\sum_{X_3}{P(X_3|X_2)}...\cdot \sum_{X_{n-2}}{X_{n-2}|X_{n-3}}\sum_{X_{n-1}}{X_{n-1}|X_{n-2}}\cdot P(X_n|X_{n-01}) \\
+    = \alpha \sum_{X_2} \sum_{X_3} ... \sum_{X_{n-1}}{f_1(X_1)xf_2(X_2)xf_{n-1}(X_{n-1})xf_n(X_n)}$\\
+
+    Each $f_k(X_k)$ term is a $2x1$ matrix that has $X_K | X_{K-1}$ on the top and $\neg X_K | X_{K-1}$ on the bottom. The total space complexity is $2n$ and therefore $O(n)$. The total time complexity is the time to multiply all the matrices, which is $2n$. This absorbs to runtime time complexity of $O(n)$
+
+
 
 
 
@@ -244,30 +250,28 @@
 
     \begin{itemize}
         \item When the card holder is travelling abroad, fraudulent transactions are more likely since tourists are prime targets for
-        thieves. More precisely, 1% of transactions are fraudulent when the card holder is travelling, where as only 0.4%
-        of the transactions are fraudulent when she is not travelling. On average, 5% of all transactions happen while the
+        thieves. More precisely, 1\% of transactions are fraudulent when the card holder is travelling, where as only 0.4\%
+        of the transactions are fraudulent when she is not travelling. On average, 5\% of all transactions happen while the
         card holder is travelling. If a transaction is fraudulent, then the likelihood of a foreign purchase increases, unless the
-        card holder happens to be travelling. More precisely, when the card holder is not travelling, 10% of the fraudulent
-        transactions are foreign purchases where as only 1% of the legitimate transactions are foreign purchases. On the
-        other hand, when the card holder is travelling, then 90% of the transactions are foreign purchases regardless of the
+        card holder happens to be travelling. More precisely, when the card holder is not travelling, 10\% of the fraudulent
+        transactions are foreign purchases where as only 1\% of the legitimate transactions are foreign purchases. On the
+        other hand, when the card holder is travelling, then 90\% of the transactions are foreign purchases regardless of the
         legitimacy of the transactions.
         \item Purchases made over the internet are more likely to be fraudulent. This is especially true for card holders who don’t
-        own any computer. Currently, 75% of the population owns a computer or smart phone and for those card holders,
-        1% of their legitimate transactions are done over the internet, however this percentage increases to 2% for fraudulent
-        transactions. For those who don’t own any computer or smart phone, a mere 0.1% of their legitimate transactions
-        is done over the internet, but that number increases to 1.1% for fraudulent transactions. Unfortunately, the credit
+        own any computer. Currently, 75\% of the population owns a computer or smart phone and for those card holders,
+        1\% of their legitimate transactions are done over the internet, however this percentage increases to 2\% for fraudulent
+        transactions. For those who don’t own any computer or smart phone, a mere 0.1\% of their legitimate transactions
+        is done over the internet, but that number increases to 1.1\% for fraudulent transactions. Unfortunately, the credit
         card company doesn’t know whether a card holder owns a computer or smart phone, however it can usually guess by
         verifying whether any of the recent transactions involve the purchase of computer related accessories. In any given
-        week, 10% of those who own a computer or smart phone purchase (with their credit card) at least one computer
-        related item as opposed to just 0.1% of those who don’t own any computer or smart phone.
+        week, 10\% of those who own a computer or smart phone purchase (with their credit card) at least one computer
+        related item as opposed to just 0.1\% of those who don’t own any computer or smart phone.
     \end{itemize}
     \part
 
     \textbf{Construct a Bayes Network to identify fraudulent transactions.}
 
-    \begin{solution*}
-
-    \end{solution*}
+    \includegraphics[width=1\textwidth]{P3Network.jpg}
 
     \part
 
@@ -276,11 +280,14 @@
     the current transaction is a fraud once we have verified that it is a foreign transaction, but not an internet purchase
     and that the card holder purchased computer related accessories in the past week?}
 
-    \begin{solution*}
+    The probabilities we want to search for: $P(Fraud)$ and $P(Fraud | FP=T, IP=F, CRP=T)$.\\
 
-    \end{solution*}
+    Part 1: $P(Fraud)$\\
+    $P(Fraud) \\
+    = (P(F|Trav) \cdot P(Trav)) + (P(F|\neg Trav) \cdot P(\neg Trav))\\
+    = (0.01 \cdot 0.05) + (0.004 \cdot 0.95) = 0.0043$\\
 
-
+    Part 2: $P(Fraud | FP=T, IP=F, CRP=T)$\\
    
 \end{homeworkProblem}
 \end{document}
