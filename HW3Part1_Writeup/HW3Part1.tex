@@ -287,7 +287,20 @@
     = (P(F|Trav) \cdot P(Trav)) + (P(F|\neg Trav) \cdot P(\neg Trav))\\
     = (0.01 \cdot 0.05) + (0.004 \cdot 0.95) = 0.0043$\\
 
-    Part 2: $P(Fraud | FP=T, IP=F, CRP=T)$\\
+    Part 2: \begin{align*}
+        \frac{P(Fraud | FP, \neg IP, CRP)}{\alpha} &= P(Trav)P(OC)P(Fraud|Trav)P(CRP|OC)P(\neg IP|OC,Fraud)P(FP|Trav,Fraud) \\
+        &+ P(\neg Trav)P(OC)P(Fraud|\neg Trav)P(CRP|OC)P(\neg IP|OC, Fraud)P(FP|\neg Trav, Fraud) \\
+        &+ P(Trav)P(\neg OC)P(Fraud|Trav)P(CRP|\neg OC)P(\neg IP|\neg OC,Fraud)P(FP|\neg Trav, Fraud) \\
+        &+ P(\neg Trav)P(\neg OC)P(Fraud|\neg Trav)P(CRP|\neg OC)P(\neg IP|\neg OC,Fraud)P(FP|\neg Trav,Fraud) \\
+        &= 0.05 \cdot 0.75 \cdot 0.01 \cdot 0.1 \cdot 0.98 \cdot 0.9 \\
+        &= 0.95 \cdot 0.75 \cdot 0.004 \cdot 0.1 \cdot 0.98 \cdot 0.1 \\
+        &= 0.05 \cdot 0.25 \cdot 0.01 \cdot 0.001 \cdot 0.989 \cdot 0.9 \\
+        &= 0.95 \cdot 0.25 \cdot 0.004 \cdot 0.001 \cdot 0.989 \cdot 0.1 \\
+        &\approx 0.0000612
+        \end{align*}
+        
+        $P(Fraud=True | FP, \neg IP, CRP) = \frac{1}{0.0000612+0.1026}\cdot 0.0000612 \approx 0.00592$
+
    
 \end{homeworkProblem}
 \end{document}
