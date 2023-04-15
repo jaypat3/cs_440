@@ -287,20 +287,28 @@
     = (P(F|Trav) \cdot P(Trav)) + (P(F|\neg Trav) \cdot P(\neg Trav))\\
     = (0.01 \cdot 0.05) + (0.004 \cdot 0.95) = 0.0043$\\
 
-    Part 2: \begin{align*}
-        \frac{P(Fraud | FP, \neg IP, CRP)}{\alpha} &= P(Trav)P(OC)P(Fraud|Trav)P(CRP|OC)P(\neg IP|OC,Fraud)P(FP|Trav,Fraud) \\
-        &+ P(\neg Trav)P(OC)P(Fraud|\neg Trav)P(CRP|OC)P(\neg IP|OC, Fraud)P(FP|\neg Trav, Fraud) \\
-        &+ P(Trav)P(\neg OC)P(Fraud|Trav)P(CRP|\neg OC)P(\neg IP|\neg OC,Fraud)P(FP|\neg Trav, Fraud) \\
-        &+ P(\neg Trav)P(\neg OC)P(Fraud|\neg Trav)P(CRP|\neg OC)P(\neg IP|\neg OC,Fraud)P(FP|\neg Trav,Fraud) \\
-        &= 0.05 \cdot 0.75 \cdot 0.01 \cdot 0.1 \cdot 0.98 \cdot 0.9 \\
-        &= 0.95 \cdot 0.75 \cdot 0.004 \cdot 0.1 \cdot 0.98 \cdot 0.1 \\
-        &= 0.05 \cdot 0.25 \cdot 0.01 \cdot 0.001 \cdot 0.989 \cdot 0.9 \\
-        &= 0.95 \cdot 0.25 \cdot 0.004 \cdot 0.001 \cdot 0.989 \cdot 0.1 \\
-        &\approx 0.0000612
-        \end{align*}
-        
-        $P(Fraud=True | FP, \neg IP, CRP) = \frac{1}{0.0000612+0.1026}\cdot 0.0000612 \approx 0.00592$
+    Part 2: \\
+        ${P(Fraud | FP, \neg IP, CRP)} \\
+        = \frac{1}{\alpha} \cdot \sum_{Trav,OC}{P(Fraud | FP, \neg IP, CRP)} \\
+        = \frac{1}{\alpha} \cdot \sum_{Trav,OC}{P(Trav) \cdot P(Fraud|Trav) \cdot P(FP|Fraud,Trav) \cdot P(OC) \cdot P(CRP,OC) \cdot P(\neg IP|OC,Fraud) } \\
+        $\\
 
+        All cases: 
+        \begin{enumerate}
+            \item $Trav = True, OC = True$\\
+            Total Probability = $0.05 \cdot 0.01 \cdot 0.9 \cdot 0.75 \cdot 0.1 \cdot (1-0.02) = 0.000033075$
+            \item $Trav = True, OC = False$\\
+            Total Probability = $0.05 \cdot 0.01 \cdot 0.9 \cdot 0.25 \cdot 0.001 \cdot (1-0.011) = 0.0000001112625$
+            \item $Trav = False, OC = True$\\
+            Total Probability = $0.95 \cdot 0.004 \cdot 0.1 \cdot 0.75 \cdot 0.1 \cdot (1-0.02) = 0.00002793$
+            \item $Trav = False, OC = False$\\
+            Total Probability = $0.95 \cdot 0.004 \cdot 0.1 \cdot 0.25 \cdot 0.001 \cdot (1-0.011) = 0.000000093955$
+        \end{enumerate}
+        
+        $P(Fraud | FP, \neg IP, CRP) \\
+        = \frac{1}{\alpha} \cdot 0.000033075 + 0.0000001112625 + 0.00002793 + 0.000000093955 \\
+        = \frac{1}{\alpha} \cdot 0.00006121021\\
+        = \frac{1}{0.00006121021 + 0.01026} \cdot 0.00006121021 = 0.00592$
    
 \end{homeworkProblem}
 \end{document}
