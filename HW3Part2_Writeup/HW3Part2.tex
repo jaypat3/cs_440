@@ -1,0 +1,299 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\rhead{\firstxmark}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Homework\ \#3 Part 2}
+\newcommand{\hmwkName}{Probabilistic Reasoning}
+\newcommand{\hmwkDate}{May 2, 2023}
+\newcommand{\hmwkClass}{CS 440: Introduction to Artificial Intelligence}
+\newcommand{\hmwkClassInstructor}{Professor Abdelsam Boularias}
+
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass}}\\
+    \textmd{\hmwkTitle\ \hmwkName}\\
+    \vspace{0.1in}\small{\hmwkDate}\\
+    \vspace{0.1in}\large{\textit{\hmwkClassInstructor}}
+    \vspace{3in}
+}
+
+\author{
+    \textbf{Jay Patwardhan} {208001851}\\ 
+    \textbf{Alan Wu} {208000574}\\ 
+    \textbf{Neel Shejwalkar} {207004853}
+}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Alias for the Solution section header
+\newcommand{\bruh}{\textbf{\large Solution}}
+\newtheorem*{solution*}{Solution}
+\newenvironment{solution}{\begin{solution*}}{{\finishline} \end{solution*}}
+
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+%Part 1%
+\begin{homeworkProblem}
+   Before we begin to tackle these problems, let's define the transition and observation matrices to make the calculations easier.
+   \[
+      T =
+      \begin{bmatrix}
+         0.2 & 0.8 & 0   & 0   & 0   & 0   \\
+         0   & 0.2 & 0.8 & 0   & 0   & 0   \\
+         0   & 0   & 0.2 & 0.8 & 0   & 0   \\
+         0   & 0   & 0   & 0.2 & 0.8 & 0   \\
+         0   & 0   & 0   & 0   & 0.2 & 0.8 \\
+         0   & 0   & 0   & 0   & 0   & 0
+      \end{bmatrix}
+   \]
+   \[
+      O_{hot} =
+      \begin{bmatrix}
+         1 & 0 & 0 & 0 & 0 & 0 \\
+         0 & 0 & 0 & 0 & 0 & 0 \\
+         0 & 0 & 0 & 0 & 0 & 0 \\
+         0 & 0 & 0 & 1 & 0 & 0 \\
+         0 & 0 & 0 & 0 & 0 & 0 \\
+         0 & 0 & 0 & 0 & 0 & 0
+      \end{bmatrix}
+   \]
+   \[
+      O_{cold} =
+      \begin{bmatrix}
+         0 & 0 & 0 & 0 & 0 & 0 \\
+         0 & 1 & 0 & 0 & 0 & 0 \\
+         0 & 0 & 1 & 0 & 0 & 0 \\
+         0 & 0 & 0 & 0 & 0 & 0 \\
+         0 & 0 & 0 & 0 & 1 & 0 \\
+         0 & 0 & 0 & 0 & 0 & 1
+      \end{bmatrix}
+   \]
+
+   \textbf{1. Filtering} \\
+   In order to find $P(X_3 | hot_1, cold_2, cold_3)$, we can use the forward model:
+   \begin{align*}
+      P(X_3 | hot_1, cold_2, cold_3) & = O_{hot}*T^T*P(X_2 | hot_1, cold_2)      \\
+                                     & = O_{hot}*T^T*O_{cold}*T^T*P(X_1 | hot_1)
+   \end{align*}
+   where $P(X_1 | hot_1)$ is simply $[1,0,0,0,0,0]$ as stated in the problem (because the rover is guaranteed to be on location A on the first day). So then,
+   \begin{align*}
+      O_{hot}*T^T*O_{cold}*T^T*[1,0,0,0,0,0]^T = [0,0.16,0.64,0,0,0]
+   \end{align*}
+   which, after normalization, becomes
+   \begin{align*}
+      [0,0,2,0.8,0,0,0] . \\
+   \end{align*}
+
+   \textbf{2. Smoothing} \\
+   To find $P(X_2 | hot_1, cold_2, cold_3)$, we can split up the calculation according into a backward model and a forward model to get the smoothed probability.
+   \begin{align*}
+      P(X_2 | hot_1, cold_2, cold_3) & = b_3 * f_{1:2} \\
+   \end{align*}
+   where
+   \begin{align*}
+      b_3 & = T*O_{cold}*b_4             \\
+          & = T*O_{cold}*[1,1,1,1,1,1]^T \\
+          & = [0.8, 1, 0.2, 0.8, 1, 0]
+   \end{align*}
+   and
+   \begin{align*}
+      f_{1:2} & = O_{cold}*T^T*P(X_1|hot_1) \\
+              & = [0, 0.8, 0, 0, 0, 0]
+   \end{align*}
+   which makes
+   \begin{align*}
+      P(X_2 | hot_1, cold_2, cold_3) & = b_3 * f_{1:2}                                   \\
+                                     & = [0.8, 1, 0.2, 0.8, 1, 0] * [0, 0.8, 0, 0, 0, 0] \\
+                                     & = [0,0.8,0,0,0,0] .
+   \end{align*}
+   After normalization, this becomes
+   \begin{align*}
+      [0,1,0,0,0,0] .
+   \end{align*}
+
+   \textbf{4. Prediction} \\
+   In order to find the distribution $P(X_4 | hot_1, cold_2, cold_3)$, we can simply split this up into:
+   \begin{align*}
+      P(X_4 | hot_1, cold_2, cold_3) & = T^T*P(X_3 | hot_1, cold_2, cold_3) \\
+                                     & = T^T*[0,0.2,0.8,0,0,0]^T            \\
+                                     & = [0,0.04,0.32,0.64,0,0] .
+   \end{align*}
+   We just used the normalized $P(X_3 | hot_1, cold_2, cold_3)$ so as to bypass normalizing this new distribution again.
+\end{homeworkProblem}
+
+\begin{homeworkProblem}
+   \textbf{1. Bellman Equation} \\
+   The Bellman equation for this particular MDP would be:
+   \begin{align*}
+      V^{\pi}(s) & = R(s, \pi(s)) + \sum_{s' \in \lbrace A, B \rbrace} T(s, \pi(s), s') V^{\pi}(s') \\
+   \end{align*}
+
+   \textbf{2. Policy Evaluation} \\
+   Using the initial policy rules $\pi(A)=1$ and $\pi(B)=1$ with initial policy values $V^\pi_0(A) = V^\pi_0(A) = 0$, two iterations of policy evaluation would look like this:
+   \begin{enumerate}
+      \item Iteration 1:
+            \begin{align*}
+               A: V^\pi_1(A) & = R(A, \pi_0(A)) + [T(A, \pi_0(A), A) V^{\pi}_0(A) + T(A, \pi_0(A), B) V^{\pi}_0(B)] \\
+                             & = 0 + [0+0]                                                                          \\
+                             & = 0                                                                                  \\
+               B: V^\pi_1(B) & = R(B, \pi_0(B)) + [T(B, \pi_0(B), A) V^{\pi}_0(A) + T(B, \pi_0(B), B) V^{\pi}_0(B)] \\
+                             & = 5 + [0 + 0]                                                                        \\
+                             & = 5
+            \end{align*}
+      \item Iteration 2:
+            \begin{align*}
+               A: V^\pi_2(A) & = R(A, \pi_0(A)) + [T(A, \pi_0(A), A) V^{\pi}_1(A) + T(A, \pi_0(A), B) V^{\pi}_1(B)] \\
+                             & = 0 + [0+0]                                                                          \\
+                             & = 0                                                                                  \\
+               B: V^\pi_2(B) & = R(B, \pi_0(B)) + [T(B, \pi_0(B), A) V^{\pi}_1(A) + T(B, \pi_0(B), B) V^{\pi}_1(B)] \\
+                             & = 5 + [0 + 5]                                                                        \\
+                             & = 10
+            \end{align*}
+   \end{enumerate}
+   So the updated values are $V^\pi(A) = 0$ and $V^\pi(A) = 10$. \\
+
+   \textbf{3. Improved Policy} \\
+   We can find $\pi_{new}$ using the policy improvement equation:
+   \begin{align*}
+      \pi_{new}(A) & = \argmax_{a \in \lbrace 1,2 \rbrace}[R(A,a)+(T(A,a,A)V_2(A)+T(A,a,B)V_2(B))] \\
+                   & = 2 \\
+      \pi_{new}(B) & = \argmax_{a \in \lbrace 1,2 \rbrace}[R(B,a)+(T(B,a,A)V_2(A)+T(B,a,B)V_2(B))] \\
+                   & = 1 
+   \end{align*}
+   The work is shown below.
+   \begin{itemize}
+      \item $\pi_{new}(A)$
+      \begin{itemize}
+         \item a=1: $0 + 1*0 + 0*10 = 0$
+         \item a=2: $-1 + 0.5*0 + 0.5*10 = 4$
+      \end{itemize}
+
+      \item $\pi_{new}(B)$
+      \begin{itemize}
+         \item a=1: $5 + 0 + 1*10 = 15$
+         \item a=2: $0 + 0 + 1*10 = 10$
+      \end{itemize}
+   \end{itemize}
+
+\end{homeworkProblem}
+
+\end{document}
