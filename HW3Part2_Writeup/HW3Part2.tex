@@ -237,7 +237,15 @@
                                      & = T^T*[0,0.2,0.8,0,0,0]^T            \\
                                      & = [0,0.04,0.32,0.64,0,0] .
    \end{align*}
-   We just used the normalized $P(X_3 | hot_1, cold_2, cold_3)$ so as to bypass normalizing this new distribution again.
+   We just used the normalized $P(X_3 | hot_1, cold_2, cold_3)$ so as to bypass normalizing this new distribution again. \\
+
+   \textbf{3. Prediction} \\
+   We can use the distribution from part 4 to calculate $P(hot_4 | hot_1, cold_2, cold_3)$.
+   \begin{align*}
+      P(hot_4 | hot_1, cold_2, cold_3) &= P(X_4 = 1 \textnormal{ or } X_4 = 4 | hot_1, cold_2, cold_3) \\
+      &= 0 + 0.64 \\
+      &= 0.64
+   \end{align*}
 \end{homeworkProblem}
 
 \begin{homeworkProblem}
