@@ -200,7 +200,7 @@
    \end{align*}
    which, after normalization, becomes
    \begin{align*}
-      [0,0,2,0.8,0,0,0] . \\
+      [0, 0.2, 0.8, 0, 0, 0] . \\
    \end{align*}
 
    \textbf{2. Smoothing} \\
@@ -277,7 +277,7 @@
                              & = 10
             \end{align*}
    \end{enumerate}
-   So the updated values are $V^\pi(A) = 0$ and $V^\pi(A) = 10$. \\
+   So the updated values are $V^\pi(A) = 0$ and $V^\pi(B) = 10$. \\
 
    \textbf{3. Improved Policy} \\
    We can find $\pi_{new}$ using the policy improvement equation:
@@ -293,12 +293,14 @@
       \begin{itemize}
          \item a=1: $0 + 1*0 + 0*10 = 0$
          \item a=2: $-1 + 0.5*0 + 0.5*10 = 4$
+         \item We pick a = 2
       \end{itemize}
 
       \item $\pi_{new}(B)$
       \begin{itemize}
          \item a=1: $5 + 0 + 1*10 = 15$
          \item a=2: $0 + 0 + 1*10 = 10$
+         \item We pick a = 1
       \end{itemize}
    \end{itemize}
 
